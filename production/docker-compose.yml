@@ -15,7 +15,7 @@ services:
     image: node:20-alpine
     working_dir: /app
     volumes:
-      - "../frontend:/app:ro"
+      - "../frontend:/app"
       - "frontend_dist:/build"
     command: sh -c "npm ci && npm run build && cp -r dist/* /build/"
     <<: *logging
