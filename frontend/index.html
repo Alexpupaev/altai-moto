@@ -91,7 +91,7 @@
     .field:focus{border-color:var(--teal);}.field::placeholder{color:#B8B0A6;}
     .field.err{border-color:#DC2626!important;}.err-msg{color:#DC2626;font-size:.75rem;margin-top:.375rem;}
     .fl{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.625rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;}
-    @media(max-width:767px){.nl{display:none!important;}.hg{grid-template-columns:1fr!important;}.mg{grid-template-columns:1fr!important;}.rg{grid-template-columns:1fr 1fr!important;}.ag{grid-template-columns:1fr!important;}.pg{grid-template-columns:1fr!important;}.sg{grid-template-columns:1fr 1fr!important;}}
+    @media(max-width:767px){.nl{display:none!important;}.hg{grid-template-columns:1fr!important;}.mg{grid-template-columns:1fr!important;}.rg{grid-template-columns:1fr!important;}.ag{grid-template-columns:1fr!important;}.pg{grid-template-columns:1fr!important;}.sg{grid-template-columns:1fr 1fr!important;}.nav-book{padding:.5rem .875rem!important;font-size:.75rem!important;letter-spacing:.05em!important;white-space:nowrap;}.hero-h1{font-size:2.5rem!important;}.rc{min-height:unset!important;}}
   </style>
 </head>
 <body>
@@ -106,7 +106,7 @@
       <a href="#pricing" style="color:rgba(247,242,236,.45);text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#F7F2EC'" onmouseout="this.style.color='rgba(247,242,236,.45)'">Цены</a>
       <a href="#rules"   style="color:rgba(247,242,236,.45);text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#F7F2EC'" onmouseout="this.style.color='rgba(247,242,236,.45)'">Правила</a>
     </div>
-    <a href="#booking" class="bc" style="background:var(--rust);color:#fff;font-weight:700;font-size:.875rem;letter-spacing:.1em;text-transform:uppercase;padding:.625rem 1.5rem;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--rustl)'" onmouseout="this.style.background='var(--rust)'">Забронировать</a>
+    <a href="#booking" class="bc nav-book" style="background:var(--rust);color:#fff;font-weight:700;font-size:.875rem;letter-spacing:.1em;text-transform:uppercase;padding:.625rem 1.5rem;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='var(--rustl)'" onmouseout="this.style.background='var(--rust)'">Забронировать</a>
   </div>
 </nav>
 
@@ -136,7 +136,7 @@
   <!-- text content -->
   <div style="position:relative;max-width:1152px;margin:0 auto;padding:3rem 1.5rem 5.5rem;width:100%;">
     <p class="lbl" style="color:rgba(247,242,236,.75);margin-bottom:1.125rem;text-shadow:0 1px 6px rgba(0,0,0,.7);">Там, где асфальт заканчивается — начинается Алтай</p>
-    <h1 class="bc" style="font-size:clamp(3rem,8vw,7rem);font-weight:800;line-height:.93;color:#F7F2EC;text-transform:uppercase;letter-spacing:.02em;max-width:580px;margin-bottom:1.5rem;">
+    <h1 class="bc hero-h1" style="font-size:clamp(3rem,8vw,7rem);font-weight:800;line-height:.93;color:#F7F2EC;text-transform:uppercase;letter-spacing:.02em;max-width:580px;margin-bottom:1.5rem;">
       Горные<br/>перевалы.<br/><em style="color:var(--rust);font-style:normal;">Открытые</em><br/>пространства.
     </h1>
     <p style="color:rgba(247,242,236,.5);font-size:.9375rem;line-height:1.65;max-width:360px;margin-bottom:2.5rem;">Honda Africa Twin 2019 · полная экипировка · маршруты по Чуйскому тракту и перевалам</p>
@@ -165,7 +165,7 @@
     <p style="color:var(--mid);font-size:.9375rem;max-width:520px;line-height:1.6;margin-bottom:3rem;">Каждый перевал — отдельный мир. Здесь горы не декорация, а живое существо, которое вы почувствуете каждым километром.</p>
     <div class="rg" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;">
 
-      <div style="background:var(--ink);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;position:relative;overflow:hidden;">
+      <div class="rc" style="background:var(--ink);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;position:relative;overflow:hidden;">
         <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=60');background-size:cover;background-position:center;opacity:.18;"></div>
         <div style="position:relative;">
           <div class="lbl" style="color:var(--teal);font-size:.5rem;margin-bottom:1.25rem;">Федеральная трасса Р-256</div>
@@ -178,7 +178,7 @@
         </div>
       </div>
 
-      <div style="background:#fff;border:1.5px solid var(--stone);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;position:relative;overflow:hidden;">
+      <div class="rc" style="background:#fff;border:1.5px solid var(--stone);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;position:relative;overflow:hidden;">
         <div style="position:absolute;top:0;right:0;width:100%;height:100%;background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=400&q=50');background-size:cover;background-position:center;opacity:.06;"></div>
         <div style="position:relative;">
           <div class="lbl" style="color:var(--rust);font-size:.5rem;margin-bottom:1.25rem;">Семинский район</div>
@@ -191,7 +191,7 @@
         </div>
       </div>
 
-      <div style="background:#fff;border:1.5px solid var(--stone);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;">
+      <div class="rc" style="background:#fff;border:1.5px solid var(--stone);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;">
         <div>
           <div class="lbl" style="color:var(--teal);font-size:.5rem;margin-bottom:1.25rem;">Долина Духов</div>
           <h3 class="bc" style="font-size:1.625rem;font-weight:800;text-transform:uppercase;line-height:1;margin-bottom:.75rem;">Кату-Ярык</h3>
@@ -203,7 +203,7 @@
         </div>
       </div>
 
-      <div style="background:var(--rust);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;">
+      <div class="rc" style="background:var(--rust);border-radius:.5rem;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;min-height:300px;">
         <div>
           <div class="lbl" style="color:rgba(255,255,255,.45);font-size:.5rem;margin-bottom:1.25rem;">Центральный Алтай</div>
           <h3 class="bc" style="font-size:1.625rem;font-weight:800;text-transform:uppercase;color:#fff;line-height:1;margin-bottom:.75rem;">Семинский перевал</h3>
