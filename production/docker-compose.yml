@@ -15,7 +15,7 @@ services:
     image: node:20-alpine
     working_dir: /app
     volumes:
-      - "../../frontend:/app:ro"
+      - "../frontend:/app:ro"
       - "frontend_dist:/build"
     command: sh -c "npm ci && npm run build && cp -r dist/* /build/"
     <<: *logging
@@ -42,12 +42,12 @@ services:
   backend:
     container_name: moto-rental_backend
     build:
-      context: ../../
+      context: ../
       dockerfile: dockerfiles/backend/Dockerfile
       target: prod
     <<: [*logging, *env]
     env_file:
-      - "../../.env"
+      - "../.env"
     volumes:
       - "backend_data:/data"
     restart: always
