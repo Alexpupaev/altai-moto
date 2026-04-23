@@ -24,6 +24,15 @@ services:
     container_name: moto-rental_web
     image: nginx:alpine
     <<: [*logging, *env]
+    env_file:
+      - "../.env"
+    command:
+      - sh
+      - -c
+      - |
+        printf '%s:%s\n' "$$DB_ADMIN_USER" "$$(openssl passwd -apr1 "$$DB_ADMIN_PASSWORD")" \
+          > /etc/nginx/.htpasswd
+        exec nginx -g 'daemon off;'
     ports:
       - "127.0.0.1:8888:80"
     volumes:
@@ -34,6 +43,8 @@ services:
       node-builder:
         condition: service_completed_successfully
       backend:
+        condition: service_started
+      sqlite-web:
         condition: service_started
     networks:
       moto_network:
@@ -54,6 +65,21 @@ services:
     networks:
       moto_network:
         ipv4_address: 10.10.0.3
+
+  sqlite-web:
+    container_name: moto-rental_sqlite-web
+    image: coleifer/sqlite-web
+    command: sqlite_web -H 0.0.0.0 -p 8080 -u /database /data/bookings.db
+    <<: [*logging, *env]
+    volumes:
+      - "../_db:/data"
+    restart: always
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      moto_network:
+        ipv4_address: 10.10.0.4
 
 networks:
   moto_network:

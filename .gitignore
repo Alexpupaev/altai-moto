@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# Nginx basic auth
+**/.htpasswd
+
 # Database
 _db/
 **/*.db

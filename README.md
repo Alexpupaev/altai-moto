@@ -117,3 +117,39 @@ Nginx слушает на `127.0.0.1:8888`. Настроить reverse proxy в 
 `altaymoto.rockhockey.ru` → `http://127.0.0.1:8888`
 
 SSL выдаётся через CyberPanel (Let's Encrypt).
+
+---
+
+## Автозапуск после перезагрузки сервера
+
+Один раз на сервере из папки проекта:
+
+```bash
+make install-service
+```
+
+Создаёт `/etc/systemd/system/moto-rental.service` и включает его. После этого `docker compose up` запускается автоматически при старте ОС.
+
+```bash
+sudo systemctl status moto-rental  # статус
+make uninstall-service              # удалить сервис
+```
+
+---
+
+## Доступ к базе данных
+
+В production доступен веб-интерфейс [sqlite-web](https://github.com/coleifer/sqlite-web):
+
+```
+https://altaymoto.rockhockey.ru/database/
+```
+
+Защищён HTTP Basic Auth. Логин и пароль задаются в `.env`:
+
+```env
+DB_ADMIN_USER=admin
+DB_ADMIN_PASSWORD=supersecret
+```
+
+При `make prod-up` nginx генерирует htpasswd-файл из этих переменных автоматически.

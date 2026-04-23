@@ -33,8 +33,23 @@ prod-up:        ## Запустить prod-окружение
 prod-down:      ## Остановить prod-окружение
 	$(COMPOSE_PROD) down
 
+prod-logs:      ## Логи prod-окружения
+	$(COMPOSE_PROD) logs -f
+
 prod-build:     ## Собрать prod-образы
 	$(COMPOSE_PROD) build
+
+install-service: ## Установить systemd-сервис (автозапуск при перезагрузке)
+	@sed 's|{{PROJECT_DIR}}|$(shell pwd)|g' production/moto-rental.service \
+	    | sudo tee /etc/systemd/system/moto-rental.service > /dev/null
+	sudo systemctl daemon-reload
+	sudo systemctl enable moto-rental
+	@echo "Сервис установлен. Запустить сейчас: sudo systemctl start moto-rental"
+
+uninstall-service: ## Удалить systemd-сервис
+	sudo systemctl disable moto-rental
+	sudo rm -f /etc/systemd/system/moto-rental.service
+	sudo systemctl daemon-reload
 
 # ─── Clean ───────────────────────────────────────────────────────────────────
 
