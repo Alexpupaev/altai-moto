@@ -1,0 +1,38 @@
+# Env
+.env
+.env.*
+!.env.example
+
+# Database
+_db/
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+.vite/
+
+# Backend
+backend/tmp/
+backend/server
+
+# Tunnel
+ngrok.yml
+.ngrok2/
+
+# IDE
+.idea/*
+!.idea/.gitignore
+!.idea/*.iml
+!.idea/modules.xml
+.vscode/
+
+# AI assistants
+.claude/
+.ai/
+
+# OS
+.DS_Store
+Thumbs.db
