@@ -59,6 +59,8 @@ services:
     <<: [*logging, *env]
     env_file:
       - "../.env"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - "../_db:/data"
     restart: always
