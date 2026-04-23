@@ -23,8 +23,7 @@ services:
   web:
     container_name: moto-rental_web
     image: nginx:alpine
-    <<: *logging
-    <<: *env
+    <<: [*logging, *env]
     ports:
       - "127.0.0.1:8888:80"
     volumes:
@@ -46,8 +45,7 @@ services:
       context: ../../
       dockerfile: dockerfiles/backend/Dockerfile
       target: prod
-    <<: *logging
-    <<: *env
+    <<: [*logging, *env]
     env_file:
       - "../../.env"
     volumes:
