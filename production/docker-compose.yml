@@ -49,7 +49,7 @@ services:
     env_file:
       - "../.env"
     volumes:
-      - "/home/altay9156/_db:/data"
+      - "../_db:/data"
     restart: always
     networks:
       moto_network:
