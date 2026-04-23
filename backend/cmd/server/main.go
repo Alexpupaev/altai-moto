@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
@@ -34,6 +35,12 @@ func main() {
 	notifier := notify.New(tgToken, tgChatID)
 	h := handler.New(db, notifier, tgWebhookSecret)
 
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	if tgToken != "" {
+		go h.StartPolling(ctx)
+	}
+
 	// Rate limiter: 3 запроса за 15 минут с одного IP
 	rateLimiter := middleware.NewRateLimiter(3, 15*time.Minute)
 
@@ -49,7 +56,6 @@ func main() {
 
 	r.Get("/api/bookings", h.GetBookings)
 	r.With(rateLimiter.Middleware).Post("/api/booking", h.CreateBooking)
-	r.Post("/telegram/webhook", h.TelegramWebhook)
 
 	// ── Старт сервера ─────────────────────────────────────────────────────────
 	log.Printf("starting server on %s", addr)

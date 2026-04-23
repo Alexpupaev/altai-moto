@@ -2,6 +2,7 @@ package notify
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -11,17 +12,76 @@ import (
 )
 
 type Notifier struct {
-	token  string
-	chatID string
-	client *http.Client
+	token      string
+	chatID     string
+	client     *http.Client
+	pollClient *http.Client
 }
 
 func New(token, chatID string) *Notifier {
 	return &Notifier{
-		token:  token,
-		chatID: chatID,
-		client: &http.Client{Timeout: 10 * time.Second},
+		token:      token,
+		chatID:     chatID,
+		client:     &http.Client{Timeout: 10 * time.Second},
+		pollClient: &http.Client{Timeout: 35 * time.Second},
 	}
+}
+
+type Update struct {
+	UpdateID      int64     `json:"update_id"`
+	CallbackQuery *Callback `json:"callback_query"`
+}
+
+type Callback struct {
+	ID      string  `json:"id"`
+	Data    string  `json:"data"`
+	Message Message `json:"message"`
+}
+
+type Message struct {
+	MessageID int64 `json:"message_id"`
+}
+
+func (n *Notifier) DeleteWebhook() error {
+	return n.call("deleteWebhook", map[string]any{"drop_pending_updates": false}, nil)
+}
+
+func (n *Notifier) GetUpdates(ctx context.Context, offset int64) ([]Update, error) {
+	body, err := json.Marshal(map[string]any{"timeout": 30, "offset": offset})
+	if err != nil {
+		return nil, fmt.Errorf("marshal: %w", err)
+	}
+
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/getUpdates", n.token)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(body))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := n.pollClient.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("getUpdates: %w", err)
+	}
+	defer resp.Body.Close()
+
+	var base struct {
+		OK          bool            `json:"ok"`
+		Description string          `json:"description"`
+		Result      json.RawMessage `json:"result"`
+	}
+	if err := json.NewDecoder(resp.Body).Decode(&base); err != nil {
+		return nil, fmt.Errorf("getUpdates decode: %w", err)
+	}
+	if !base.OK {
+		return nil, fmt.Errorf("getUpdates: %s", base.Description)
+	}
+
+	var updates []Update
+	if err := json.Unmarshal(base.Result, &updates); err != nil {
+		return nil, fmt.Errorf("getUpdates unmarshal: %w", err)
+	}
+	return updates, nil
 }
 
 type inlineButton struct {
