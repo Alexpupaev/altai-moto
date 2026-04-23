@@ -84,11 +84,8 @@ func (n *Notifier) Send(b storage.Booking) (int64, error) {
 		return 0, nil
 	}
 
-	var resp struct {
-		OK     bool `json:"ok"`
-		Result struct {
-			MessageID int64 `json:"message_id"`
-		} `json:"result"`
+	var result struct {
+		MessageID int64 `json:"message_id"`
 	}
 
 	err := n.call("sendMessage", map[string]any{
@@ -98,14 +95,11 @@ func (n *Notifier) Send(b storage.Booking) (int64, error) {
 		"reply_markup": map[string]any{
 			"inline_keyboard": buildKeyboard(b.ID, b.Status),
 		},
-	}, &resp)
+	}, &result)
 	if err != nil {
 		return 0, err
 	}
-	if !resp.OK {
-		return 0, fmt.Errorf("telegram sendMessage: ok=false")
-	}
-	return resp.Result.MessageID, nil
+	return result.MessageID, nil
 }
 
 // EditMessage обновляет текст и кнопки существующего сообщения.
