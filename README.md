@@ -122,17 +122,24 @@ SSL выдаётся через CyberPanel (Let's Encrypt).
 
 ## Автозапуск после перезагрузки сервера
 
-Один раз на сервере из папки проекта:
+Выполнить один раз от root на сервере:
 
 ```bash
-make install-service
+# заменить /path/to/moto-rental на реальный путь к проекту
+sed 's|{{PROJECT_DIR}}|/path/to/moto-rental|g' \
+    /path/to/moto-rental/production/moto-rental.service \
+    > /etc/systemd/system/moto-rental.service
+
+systemctl daemon-reload
+systemctl enable moto-rental
+systemctl start moto-rental
 ```
 
-Создаёт `/etc/systemd/system/moto-rental.service` и включает его. После этого `docker compose up` запускается автоматически при старте ОС.
+После этого `docker compose up` запускается автоматически при старте ОС.
 
 ```bash
-sudo systemctl status moto-rental  # статус
-make uninstall-service              # удалить сервис
+systemctl status moto-rental   # статус
+systemctl disable moto-rental  # отключить автозапуск
 ```
 
 ---

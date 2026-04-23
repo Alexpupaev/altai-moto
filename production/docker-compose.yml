@@ -30,8 +30,8 @@ services:
       - sh
       - -c
       - |
-        printf '%s:%s\n' "$$DB_ADMIN_USER" "$$(openssl passwd -apr1 "$$DB_ADMIN_PASSWORD")" \
-          > /etc/nginx/.htpasswd
+        apk add --no-cache apache2-utils -q
+        htpasswd -bn "$$DB_ADMIN_USER" "$$DB_ADMIN_PASSWORD" > /etc/nginx/.htpasswd
         exec nginx -g 'daemon off;'
     ports:
       - "127.0.0.1:8888:80"
