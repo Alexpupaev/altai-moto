@@ -5,17 +5,17 @@ COMPOSE_PROD = docker-compose -f production/docker-compose.yml
 
 # ─── Dev ─────────────────────────────────────────────────────────────────────
 
-dev:            ## Запустить dev-окружение (foreground)
-	$(COMPOSE_DEV) up
-
-dev-up:          ## Запустить dev-окружение (background)
+dev-up:          ## Запустить dev-окружение
 	$(COMPOSE_DEV) up -d
 
-down:           ## Остановить dev-окружение
+dev-down:           ## Остановить dev-окружение
 	$(COMPOSE_DEV) down
 
-logs:           ## Логи dev-окружения
+dev-logs:           ## Логи dev-окружения
 	$(COMPOSE_DEV) logs -f
+
+dev-build:			## Собрать dev-образы
+	$(COMPOSE_DEV) build
 
 # ─── Shells ───────────────────────────────────────────────────────────────────
 
